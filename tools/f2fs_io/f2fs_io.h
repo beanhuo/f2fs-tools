@@ -38,6 +38,9 @@ typedef u16	__be16;
 typedef u32	__be32;
 #endif
 
+#define F2FS_BLKSIZE	4096
+#define NEW_ADDR	0xFFFFFFFF
+
 #ifndef FS_IOC_GETFLAGS
 #define FS_IOC_GETFLAGS			_IOR('f', 1, long)
 #endif
@@ -130,6 +133,29 @@ typedef u32	__be32;
 #endif
 #ifndef FS_CASEFOLD_FL
 #define FS_CASEFOLD_FL			0x40000000 /* Folder is case insensitive */
+#endif
+
+struct fiemap_extent {
+	u64 fe_logical;
+	u64 fe_physical;
+	u64 fe_length;
+	u64 fe_reserved64[2];
+	u32 fe_flags;
+	u32 fe_reserved[3];
+};
+
+struct fiemap {
+	u64 fm_start;
+	u64 fm_length;
+	u32 fm_flags;
+	u32 fm_mapped_extents;
+	u32 fm_extent_count;
+	u32 fm_reserved;
+	struct fiemap_extent fm_extent[0];
+};
+
+#ifndef FIEMAP
+#define FIEMAP				_IOWR('f', 11, struct fiemap)
 #endif
 
 struct f2fs_gc_range {
