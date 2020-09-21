@@ -1,5 +1,5 @@
 ## Makefile.am
-
+fsck_f2fs_LDFLAGS = -all-static
 AM_CPPFLAGS = ${libuuid_CFLAGS} -I$(top_srcdir)/include
 AM_CFLAGS = -Wall
 sbin_PROGRAMS = fsck.f2fs

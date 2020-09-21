@@ -1,0 +1,41 @@
+1. firstly follow the steps which are introduced by https://github.com/jaegeuk/f2fs-tools
+2. However, even though, you still cannot successfully cross-compile.
+   a. The first issue I encountered is that it cannot find libselinux1, to fix
+   this issue, just add this in the configure command:
+
+   --without-selinux
+
+   b. then the second issue I met that cannot find libuuid-dev
+   Based on the README in the f2fs-tool folder, which suggests several depended
+   package, but it doesn't say these depended package are for arm-gcc or host
+   gcc. for the cross-compile, we should install uuid lib for your own arm-gcc.
+
+   If you have ever built the mtd-util tool, then you will know the steps of
+   compile/install libuuid lib:
+
+   wget http://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/v1.42.9/e2fsprogs-1.42.9.tar.gz
+
+   tar -xzf e2fsprogs-1.42.9.tar.gz
+   cd e2fsprogs-1.42.9
+
+   ./configure CC=arm-linux-gnueabi-gcc --host=arm-linux-gnueabi --prefix=your
+   cross-gcc tool lib folder
+    make
+    make install
+    cd lib/uuid/
+    make install
+
+    then, you will see a file libuuid.a in your gcc lib folder.
+
+    c. After above operations, seems we fix all the problems, but while performing
+    make command, there is this issue:
+
+    "build failed, dangerous relocation: unsupported relocation"
+
+    This is because of library build needs -fPIC,
+    then we add fPIC in the libuuid configure command:
+
+    sudo ./configure CFLAGS='-fPIC' --host=arm-linux-gnueabi --prefix=/usr/arm-linux-gnueabi/
+
+    after this, rebuild the libuuid, and install,
+    then you will finally compile the f2fs-tool.

@@ -1,5 +1,5 @@
 ## Makefile.am
-
+mkfs_f2fs_LDFLAGS = -all-static
 AM_CPPFLAGS = ${libuuid_CFLAGS} ${libblkid_CFLAGS} -I$(top_srcdir)/include
 AM_CFLAGS = -Wall -DWITH_BLKDISCARD
 sbin_PROGRAMS = mkfs.f2fs

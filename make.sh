@@ -1,0 +1,3 @@
+#./configure LDFLAGS=--static --host=arm64 --prefix=/home/bean/workspace1/01-tool/f2fs-tools/out CC=/home/bean/workspace1/crosstools/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc --host=arm-none-linux-gnueabi --target=arm-none-linux-gnueabi
+#LDFLAGS=--static ./configure --prefix=/home/bean/workspace1/01-tool/f2fs-tools/out CC=/home/bean/workspace1/crosstools/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc --host=arm-none-linux-gnueabi --target=arm-none-linux-gnueabi --without-selinux
+LDFLAGS=--static ./configure --prefix=/home/bean/workspace1/01-tool/f2fs-tools/out CC=arm-linux-gnueabi-gcc --host=arm-none-linux-gnueabi --target=arm-none-linux-gnueabi --without-selinux
